@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Buildings page</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <app-add-building></app-add-building>
+  </div>
+</div>
+<div class="row" *ngIf="allBuildings.length > 0">
+  <div class="col-md-3" *ngFor="let building of allBuildings">
+    <app-building-icon [currentBuilding]="building"></app-building-icon>
+  </div>
+</div>
+<div class="row center" *ngIf="loading">
+  <div class="col-md-12">
+    <div class="alert alert-success">
+      <h4>Loading...</h4>
+    </div>
+  </div>
+</div>
+<div class="row center" *ngIf="allBuildings.length === 0 && !loading">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      <h4>No buildings, please add some!</h4>
+    </div>
+  </div>
+</div>

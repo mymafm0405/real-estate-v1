@@ -1,0 +1,10 @@
+<div class="row add-margin">
+  <div class="col-md-12">
+    <button class="btn btn-success" (click)="onAddClick()">Add new</button>
+  </div>
+</div>
+<div class="row add-margin" *ngIf="addClicked">
+  <div class="col-md-12">
+    <app-building-form></app-building-form>
+  </div>
+</div>

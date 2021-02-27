@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-md-12">
+    <form (ngSubmit)="onSubmit()" #addForm="ngForm">
+      <div class="row">
+        <div class="col-md-2">
+          <h4>Building name:</h4>
+        </div>
+        <div class="col-md-10">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Building name"
+            name="name"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <h4>Address:</h4>
+        </div>
+        <div class="col-md-10">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Address"
+            name="address"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <h4>Total price:</h4>
+        </div>
+        <div class="col-md-10">
+          <input
+            class="form-control"
+            type="number"
+            placeholder="Total price"
+            name="price"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="addForm.invalid"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+</div>
+<div class="row add-margin">
+  <div class="col-md-12">
+    <div class="alert alert-danger" *ngIf="!addingStatus && submitted">
+      <h4>There is an error, please try again!</h4>
+    </div>
+    <div class="alert alert-success" *ngIf="addingStatus && submitted">
+      <h4>Building added Successfully!</h4>
+    </div>
+  </div>
+</div>
