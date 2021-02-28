@@ -1,1 +1,38 @@
-<p>building-details works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn btn-primary" [routerLink]="['']">Back to home</button>
+  </div>
+</div>
+<div class="row" *ngIf="currentBuilding">
+  <div class="col-md-12">
+    <h3>{{ currentBuilding.name }}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <button
+      class="btn btn-success"
+      (click)="onAddUnit()"
+      [routerLink]="['unit-form']"
+    >
+      Add new unit
+    </button>
+  </div>
+</div>
+<div class="row" *ngIf="showUnitForm">
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<div class="row" *ngIf="buildingUnits.length > 0">
+  <div class="col-md-3" *ngFor="let unit of buildingUnits">
+    <h4>{{ unit.name }}</h4>
+  </div>
+</div>
+<div class="row" *ngIf="buildingUnits.length === 0">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      <h4>No units available in this building!</h4>
+    </div>
+  </div>
+</div>

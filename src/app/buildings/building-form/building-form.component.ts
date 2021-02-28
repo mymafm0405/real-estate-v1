@@ -28,7 +28,7 @@ export class BuildingFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.addForm.value);
-    const newBuilding: Building = { ...this.addForm.value, units: [] };
+    const newBuilding: Building = this.addForm.value;
     this.buildingsService.addBuilding(newBuilding);
     this.addForm.reset();
     setTimeout(() => {

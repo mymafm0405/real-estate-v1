@@ -18,7 +18,15 @@ import { AddBuildingComponent } from './buildings/add-building/add-building.comp
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UnitsComponent } from './buildings/units/units.component';
-
+import { RouterModule, Routes } from '@angular/router';
+const appRoutes: Routes = [
+  { path: '', component: BuildingsComponent },
+  {
+    path: 'building/:id',
+    component: BuildingDetailsComponent,
+    children: [{ path: 'unit-form', component: UnitFormComponent }],
+  },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +45,12 @@ import { UnitsComponent } from './buildings/units/units.component';
     AddBuildingComponent,
     UnitsComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
