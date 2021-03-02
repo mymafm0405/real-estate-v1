@@ -26,7 +26,7 @@
 </div>
 <div class="row" *ngIf="buildingUnits.length > 0">
   <div class="col-md-3" *ngFor="let unit of buildingUnits">
-    <h4>{{ unit.name }}</h4>
+    <app-unit-icon [unit]="unit"></app-unit-icon>
   </div>
 </div>
 <div class="row" *ngIf="buildingUnits.length === 0">

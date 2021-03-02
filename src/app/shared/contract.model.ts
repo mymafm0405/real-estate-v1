@@ -3,9 +3,11 @@ import { Customer } from './customer.model';
 export class Contract {
   constructor(
     public contractNumber: number,
-    public start: string,
+    public buildingId: string,
+    public unitId: string,
+    public startDate: string,
     public monthPrice: number,
     public numOfMonths: number,
-    public customer: Customer
+    public id?: string
   ) {}
 }

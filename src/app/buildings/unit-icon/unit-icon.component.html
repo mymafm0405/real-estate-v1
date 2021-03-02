@@ -1,1 +1,10 @@
-<p>unit-icon works!</p>
+<div class="row">
+  <div
+    [ngClass]="
+      unit.contractId === '' ? 'col-md-12 unit empty' : 'col-md-12 unit rented'
+    "
+  >
+    <h4 [routerLink]="['unit', unit.id]">{{ unit.name }}</h4>
+    <p>{{ unit.contractId === "" ? "Empty" : "Rented" }}</p>
+  </div>
+</div>

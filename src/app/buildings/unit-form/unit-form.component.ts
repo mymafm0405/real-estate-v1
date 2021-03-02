@@ -42,6 +42,7 @@ export class UnitFormComponent implements OnInit {
   onSubmit() {
     const newUnit = new Unit(
       this.parentId,
+      '',
       this.addForm.value.name,
       this.addForm.value.details
     );

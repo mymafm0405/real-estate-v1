@@ -1,0 +1,109 @@
+<div class="row add-margin">
+  <div class="col-md-12">
+    <form (ngSubmit)="onSubmit()" #addForm="ngForm">
+      <div class="row">
+        <div class="col-md-2">Customer name:</div>
+        <div class="col-md-10">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Qatar ID:</div>
+        <div class="col-md-10">
+          <input
+            type="number"
+            class="form-control"
+            name="qid"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Passport number:</div>
+        <div class="col-md-10">
+          <input
+            type="text"
+            class="form-control"
+            name="passport"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Telephone:</div>
+        <div class="col-md-10">
+          <input
+            type="number"
+            class="form-control"
+            name="phone"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Rent Date:</div>
+        <div class="col-md-10">
+          <input
+            type="date"
+            class="form-control"
+            name="date"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Month price:</div>
+        <div class="col-md-10">
+          <input
+            type="number"
+            class="form-control"
+            name="price"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Required Months:</div>
+        <div class="col-md-10">
+          <input
+            type="number"
+            class="form-control"
+            name="monthAmount"
+            ngModel
+            required
+          />
+        </div>
+      </div>
+      <button
+        class="btn btn-warning"
+        type="submit"
+        [disabled]="addForm.invalid"
+      >
+        Save contract
+      </button>
+      <div class="row">
+        <div class="col-md-12" *ngIf="submitted && addingContractStatus">
+          <div class="alert alert-success">
+            <h4>Contract added successfully</h4>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="submitted && !addingContractStatus">
+          <div class="alert alert-danger">
+            <h4>Error happened, Try again!</h4>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

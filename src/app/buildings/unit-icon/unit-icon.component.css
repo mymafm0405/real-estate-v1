@@ -1,0 +1,9 @@
+.unit {
+  border: 1px solid #333;
+}
+.rented {
+  background-color: #ffc5c5;
+}
+.empty {
+  background-color: #d3ffd3;
+}

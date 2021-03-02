@@ -13,12 +13,13 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
 import { CustomerFormComponent } from './customers/customer-form/customer-form.component';
 import { ReceiptFormComponent } from './receipts/receipt-form/receipt-form.component';
 import { ReceiptDetailsComponent } from './receipts/receipt-details/receipt-details.component';
-import { ContractSummaryComponent } from './cotracts/contract-summary/contract-summary.component';
+import { ContractSummaryComponent } from './contracts/contract-summary/contract-summary.component';
 import { AddBuildingComponent } from './buildings/add-building/add-building.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UnitsComponent } from './buildings/units/units.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ContractFormComponent } from './contracts/contract-form/contract-form.component';
 const appRoutes: Routes = [
   { path: '', component: BuildingsComponent },
   {
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     component: BuildingDetailsComponent,
     children: [{ path: 'unit-form', component: UnitFormComponent }],
   },
+  { path: 'building/:id/unit/:unitId', component: UnitDetailsComponent },
 ];
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ const appRoutes: Routes = [
     ContractSummaryComponent,
     AddBuildingComponent,
     UnitsComponent,
+    ContractFormComponent,
   ],
   imports: [
     BrowserModule,

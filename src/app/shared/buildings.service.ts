@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { Building } from './building.model';
 import { map } from 'rxjs/operators';
 import { Unit } from './unit.model';
+import { Contract } from './contract.model';
+import { Customer } from './customer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +13,14 @@ import { Unit } from './unit.model';
 export class BuildingsService {
   buildings: Building[] = [];
   units: Unit[] = [];
+  contracts: Contract[] = [];
+  customers: Customer[] = [];
 
   buildingsChanged = new Subject<Building[]>();
   buildingAddingStatus = new Subject<boolean>();
 
   unitsAddingStatus = new Subject<boolean>();
+  unitUpdateStatus = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -93,6 +98,10 @@ export class BuildingsService {
     return this.units.filter((unit) => unit.parentId === parentId);
   }
 
+  getCurrentUnit(unitId: string): Unit {
+    return this.units.find((unit) => unit.id === unitId);
+  }
+
   addUnit(parentId: string, newUnit: Unit) {
     if (this.buildings.find((building) => building.id === parentId)) {
       this.http
@@ -101,14 +110,46 @@ export class BuildingsService {
           newUnit
         )
         .subscribe(
-          () => {
+          (res: { name: string }) => {
             console.log('success for adding the unit!');
-            this.units.push(newUnit);
+            this.units.push({ ...newUnit, id: res.name });
             this.unitsAddingStatus.next(true);
           },
           (error) => {
             console.log(error);
             this.unitsAddingStatus.next(false);
+          }
+        );
+    }
+  }
+
+  // All about contracts from here...
+
+  addContract(newContract: Contract) {
+    const foundUnit = this.units.find((unit) => unit.id === newContract.unitId);
+    if (foundUnit) {
+      this.http
+        .post(
+          'https://real-estate-v1-default-rtdb.firebaseio.com/contracts.json',
+          newContract
+        )
+        .subscribe(
+          (res: { name: string }) => {
+            const contractId = res.name;
+            this.http
+              .patch(
+                'https://real-estate-v1-default-rtdb.firebaseio.com/units/' +
+                  newContract.unitId +
+                  '.json',
+                { contractId: contractId }
+              )
+              .subscribe(() => {
+                foundUnit.contractId = contractId;
+                this.unitUpdateStatus.next(true);
+              });
+          },
+          (error) => {
+            console.log(error);
           }
         );
     }

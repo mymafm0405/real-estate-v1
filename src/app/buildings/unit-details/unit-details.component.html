@@ -1,1 +1,30 @@
-<p>unit-details works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn btn-danger" [routerLink]="['../../']">
+      Back to building
+    </button>
+  </div>
+</div>
+<div class="row" *ngIf="currentUnit">
+  <div class="col-md-12">
+    <h4>{{ currentUnit.name }}</h4>
+    <div class="row" *ngIf="currentUnit.contractId === ''">
+      <div class="col-md-12">
+        <button class="btn btn-success" (click)="onNewContract()">
+          New contract
+        </button>
+      </div>
+    </div>
+    <div class="row" *ngIf="currentUnit.contractId !== ''">
+      <div class="col-md-12">
+        <button class="btn btn-success">View contract</button>
+      </div>
+    </div>
+    <div class="row" *ngIf="newContractClicked">
+      <div class="col-md-12">
+        <h2 class="register">Register a new contract</h2>
+        <app-contract-form></app-contract-form>
+      </div>
+    </div>
+  </div>
+</div>

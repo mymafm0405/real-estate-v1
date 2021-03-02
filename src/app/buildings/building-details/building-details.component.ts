@@ -33,6 +33,7 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
       this.buildingUnits = this.buildingsService.getBuildingUnits(
         this.currentId
       );
+      console.log(this.buildingUnits);
     });
 
     this.unitsAddingStatusSub = this.buildingsService.unitsAddingStatus.subscribe(
@@ -42,6 +43,7 @@ export class BuildingDetailsComponent implements OnInit, OnDestroy {
           this.buildingUnits = this.buildingsService.getBuildingUnits(
             this.currentId
           );
+          console.log(this.buildingUnits);
         }
       }
     );
