@@ -17,13 +17,20 @@
     </div>
     <div class="row" *ngIf="currentUnit.contractId !== ''">
       <div class="col-md-12">
-        <button class="btn btn-success">View contract</button>
+        <button class="btn btn-success" (click)="onViewContract()">
+          View contract
+        </button>
       </div>
     </div>
     <div class="row" *ngIf="newContractClicked">
       <div class="col-md-12">
         <h2 class="register">Register a new contract</h2>
         <app-contract-form></app-contract-form>
+      </div>
+    </div>
+    <div class="row" *ngIf="viewClicked">
+      <div class="col-md-12">
+        <app-contract-summary></app-contract-summary>
       </div>
     </div>
   </div>

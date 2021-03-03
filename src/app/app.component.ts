@@ -12,5 +12,7 @@ export class AppComponent implements OnInit {
   constructor(private buildingsService: BuildingsService) {}
   ngOnInit() {
     this.buildingsService.loadUnits();
+    this.buildingsService.loadContracts();
+    this.buildingsService.loadCustomers();
   }
 }

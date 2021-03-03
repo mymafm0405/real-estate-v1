@@ -13,6 +13,7 @@ export class UnitDetailsComponent implements OnInit {
   unitId: string;
   currentUnit: Unit;
   newContractClicked = false;
+  viewClicked = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,5 +36,9 @@ export class UnitDetailsComponent implements OnInit {
 
   onNewContract() {
     this.newContractClicked = !this.newContractClicked;
+  }
+
+  onViewContract() {
+    this.viewClicked = !this.viewClicked;
   }
 }

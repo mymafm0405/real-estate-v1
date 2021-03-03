@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BuildingsService } from 'src/app/shared/buildings.service';
 import { Contract } from 'src/app/shared/contract.model';
+import { Customer } from 'src/app/shared/customer.model';
 
 interface FormsValues {
   name: string;
@@ -26,6 +27,11 @@ export class ContractFormComponent implements OnInit, OnDestroy {
   submitted = false;
   buildingId: string;
   unitId: string;
+  msgFoundCustomer = false;
+  confirmed = false;
+  formValues: FormsValues;
+  customerId: string;
+  newContract: Contract;
 
   constructor(
     private buildingsService: BuildingsService,
@@ -53,16 +59,72 @@ export class ContractFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const formValues: FormsValues = this.addForm.value;
-    const newContract: Contract = new Contract(
-      1,
+    this.formValues = this.addForm.value;
+    // const newContract: Contract = new Contract(
+    //   this.buildingId,
+    //   this.unitId,
+    //   this.formValues.date,
+    //   this.formValues.price,
+    //   this.formValues.monthsAmount
+    // );
+    this.newContract = new Contract(
       this.buildingId,
       this.unitId,
-      formValues.date,
-      formValues.price,
-      formValues.monthsAmount
+      this.formValues.date,
+      this.formValues.price,
+      this.formValues.monthsAmount
     );
-    this.buildingsService.addContract(newContract);
+    const foundCustomer = this.buildingsService.checkCustomer(
+      this.formValues.qid,
+      this.formValues.phone
+    );
+    console.log(foundCustomer);
+    if (foundCustomer && !this.msgFoundCustomer && !this.confirmed) {
+      this.customerId = foundCustomer.id;
+      this.buildingsService.getContractsForCustomer(this.customerId);
+      this.msgFoundCustomer = true;
+      console.log('we have found other contracts to same customer!');
+      console.log(this.customerId);
+      return;
+    }
+    if (this.confirmed) {
+      this.addNewCont(this.newContract);
+      console.log('we have confirmed to add this contract!');
+    }
+    if (!foundCustomer && !this.msgFoundCustomer) {
+      this.addNewCustomerAndNewCont();
+      console.log(
+        'we did not find any contracts to the same customer, so we added it'
+      );
+    }
+  }
+
+  onConfirm() {
+    this.confirmed = true;
+  }
+
+  addNewCont(newCont: Contract) {
+    this.buildingsService.addContract({
+      ...newCont,
+      customerId: this.customerId,
+    });
+  }
+
+  addNewCustomerAndNewCont() {
+    const newCustomer = new Customer(
+      this.formValues.name,
+      this.formValues.qid,
+      this.formValues.phone,
+      this.formValues.passport
+    );
+
+    this.buildingsService
+      .addCustomer(newCustomer)
+      .subscribe((res: { name: string }) => {
+        this.customerId = res.name;
+        this.addNewCont(this.newContract);
+        console.log('new customer added with id: ' + this.customerId);
+      });
   }
 
   ngOnDestroy() {

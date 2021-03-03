@@ -1,1 +1,13 @@
-<p>contract-summary works!</p>
+<div class="row" *ngIf="foundContract">
+  <div class="col-md-12">
+    <h3>Customer details {{ foundContract.id }}</h3>
+    <h4>Financial details</h4>
+  </div>
+</div>
+<div class="row" *ngIf="!foundContract">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      <h4>No contract found for this unit! an error happened!</h4>
+    </div>
+  </div>
+</div>

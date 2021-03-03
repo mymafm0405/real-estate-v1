@@ -146,6 +146,8 @@ export class BuildingsService {
               .subscribe(() => {
                 foundUnit.contractId = contractId;
                 this.unitUpdateStatus.next(true);
+                this.loadContracts();
+                this.loadCustomers();
               });
           },
           (error) => {
@@ -153,5 +155,72 @@ export class BuildingsService {
           }
         );
     }
+  }
+
+  loadContracts() {
+    this.http
+      .get('https://real-estate-v1-default-rtdb.firebaseio.com/contracts.json')
+      .pipe(
+        map((resData): Contract[] => {
+          const resContracts: Contract[] = [];
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              resContracts.push({ ...resData[key], id: key });
+            }
+          }
+          return resContracts;
+        })
+      )
+      .subscribe((resContracts) => {
+        this.contracts = resContracts;
+      });
+  }
+
+  getUnitContract(unitId: string) {
+    return this.contracts.find((contract) => contract.unitId === unitId);
+  }
+
+  // All about customers from here...
+
+  getContractsForCustomer(customerId: string) {
+    const foundContracts = this.contracts.filter(
+      (contract) => contract.customerId === customerId
+    );
+    console.log(foundContracts);
+  }
+
+  addCustomer(newCustomer: Customer) {
+    return this.http.post(
+      'https://real-estate-v1-default-rtdb.firebaseio.com/customers.json',
+      newCustomer
+    );
+  }
+
+  loadCustomers() {
+    this.http
+      .get('https://real-estate-v1-default-rtdb.firebaseio.com/customers.json')
+      .pipe(
+        map((resData): Customer[] => {
+          const resCustomers: Customer[] = [];
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              resCustomers.push({ ...resData[key], id: key });
+            }
+          }
+          return resCustomers;
+        })
+      )
+      .subscribe((resCustomers) => {
+        this.customers = resCustomers;
+        console.log('Customers loaded successfully!');
+      });
+  }
+
+  checkCustomer(qid: number, phone: number) {
+    const foundCustomer = this.customers.find(
+      (customer) => customer.qId === qid || customer.phone === phone
+    );
+    console.log(foundCustomer);
+    return foundCustomer;
   }
 }

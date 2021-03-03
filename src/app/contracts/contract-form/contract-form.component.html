@@ -79,7 +79,7 @@
           <input
             type="number"
             class="form-control"
-            name="monthAmount"
+            name="monthsAmount"
             ngModel
             required
           />
@@ -89,9 +89,27 @@
         class="btn btn-warning"
         type="submit"
         [disabled]="addForm.invalid"
+        *ngIf="!msgFoundCustomer"
       >
         Save contract
       </button>
+      <div class="row" *ngIf="msgFoundCustomer">
+        <div class="col-md-12">
+          <h3>
+            Warning! we have another contracts to the same customer, please
+            confirm to add this contract or not!
+          </h3>
+          <button
+            class="btn btn-success"
+            (click)="onConfirm()"
+            type="submit"
+            [disabled]="addForm.invalid"
+          >
+            Confirm
+          </button>
+          <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-12" *ngIf="submitted && addingContractStatus">
           <div class="alert alert-success">
