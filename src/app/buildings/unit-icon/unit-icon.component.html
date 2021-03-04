@@ -6,5 +6,6 @@
   >
     <h4 [routerLink]="['unit', unit.id]">{{ unit.name }}</h4>
     <p>{{ unit.contractId === "" ? "Empty" : "Rented" }}</p>
+    <h4 *ngIf="unit.contractId && customer">{{ customer.name }}</h4>
   </div>
 </div>

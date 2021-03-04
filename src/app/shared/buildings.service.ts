@@ -223,4 +223,11 @@ export class BuildingsService {
     console.log(foundCustomer);
     return foundCustomer;
   }
+
+  getCustomer(customerId: string) {
+    const foundCustomer = this.customers.find(
+      (customer) => customer.id === customerId
+    );
+    return foundCustomer;
+  }
 }

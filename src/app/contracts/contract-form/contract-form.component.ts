@@ -52,7 +52,7 @@ export class ContractFormComponent implements OnInit, OnDestroy {
         this.addForm.reset();
         setTimeout(() => {
           this.submitted = false;
-          this.router.navigate(['../']);
+          this.router.navigate(['building', this.buildingId]);
         }, 2000);
       }
     );
@@ -60,13 +60,6 @@ export class ContractFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.formValues = this.addForm.value;
-    // const newContract: Contract = new Contract(
-    //   this.buildingId,
-    //   this.unitId,
-    //   this.formValues.date,
-    //   this.formValues.price,
-    //   this.formValues.monthsAmount
-    // );
     this.newContract = new Contract(
       this.buildingId,
       this.unitId,
@@ -101,6 +94,11 @@ export class ContractFormComponent implements OnInit, OnDestroy {
 
   onConfirm() {
     this.confirmed = true;
+  }
+
+  onCancel() {
+    this.msgFoundCustomer = false;
+    this.addForm.reset();
   }
 
   addNewCont(newCont: Contract) {

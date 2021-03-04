@@ -1,7 +1,29 @@
 <div class="row" *ngIf="foundContract">
   <div class="col-md-12">
-    <h3>Customer details {{ foundContract.id }}</h3>
-    <h4>Financial details</h4>
+    <h3>Customer details</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Customer name: {{ customer.name }}</h4>
+        <h4>Customer phone: {{ customer.phone }}</h4>
+        <br />
+        <h3>Financial details</h3>
+        <h4>
+          Month price:
+          <span class="price">{{ foundContract.monthPrice }}</span> QAR
+        </h4>
+        <h4>
+          Required months:
+          <span class="price">{{ foundContract.numOfMonths }}</span> Months
+        </h4>
+        <h4>
+          Total amount:
+          <span class="price">{{
+            foundContract.monthPrice * foundContract.numOfMonths
+          }}</span>
+          QAR
+        </h4>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row" *ngIf="!foundContract">
