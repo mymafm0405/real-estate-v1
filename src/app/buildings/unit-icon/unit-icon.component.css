@@ -1,5 +1,11 @@
 .unit {
   border: 1px solid #333;
+  cursor: pointer;
+}
+.unit:hover {
+  background-color: beige;
+  border-color: red;
+  color: #4747ff;
 }
 .rented {
   background-color: #ffc5c5;

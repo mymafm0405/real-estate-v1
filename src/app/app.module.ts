@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UnitsComponent } from './buildings/units/units.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ContractFormComponent } from './contracts/contract-form/contract-form.component';
+import { FinSummaryComponent } from './financials/fin-summary/fin-summary.component';
 const appRoutes: Routes = [
   { path: '', component: BuildingsComponent },
   {
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     AddBuildingComponent,
     UnitsComponent,
     ContractFormComponent,
+    FinSummaryComponent,
   ],
   imports: [
     BrowserModule,

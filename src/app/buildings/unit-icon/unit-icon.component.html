@@ -1,10 +1,11 @@
 <div class="row">
   <div
+    [routerLink]="['unit', unit.id]"
     [ngClass]="
       unit.contractId === '' ? 'col-md-12 unit empty' : 'col-md-12 unit rented'
     "
   >
-    <h4 [routerLink]="['unit', unit.id]">{{ unit.name }}</h4>
+    <h4>{{ unit.name }}</h4>
     <p>{{ unit.contractId === "" ? "Empty" : "Rented" }}</p>
     <h4 *ngIf="unit.contractId && customer">{{ customer.name }}</h4>
   </div>
