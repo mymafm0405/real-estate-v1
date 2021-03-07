@@ -16,6 +16,7 @@ export class UnitFormComponent implements OnInit {
   unitAddingStatus: boolean;
   submitted = false;
   unitAddingStatusSub: Subscription;
+  inProgress = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class UnitFormComponent implements OnInit {
 
     this.unitAddingStatusSub = this.buildingsService.unitsAddingStatus.subscribe(
       (status: boolean) => {
+        this.inProgress = false;
         this.submitted = true;
         this.unitAddingStatus = status;
         this.addForm.reset();
@@ -40,6 +42,7 @@ export class UnitFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.inProgress = true;
     const newUnit = new Unit(
       this.parentId,
       '',

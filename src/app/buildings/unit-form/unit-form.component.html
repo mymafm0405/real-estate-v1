@@ -31,23 +31,33 @@
           />
         </div>
       </div>
-      <div class="row" *ngIf="!unitAddingStatus && submitted">
-        <div class="col-md-12">
+
+      <button
+        class="btn btn-danger"
+        type="submit"
+        [disabled]="addForm.invalid || inProgress"
+      >
+        Save unit
+      </button>
+      <div class="row">
+        <div class="col-md-12" *ngIf="!unitAddingStatus && submitted">
           <div class="alert alert-danger">
             <h4>Sorry, try again!</h4>
           </div>
         </div>
-      </div>
-      <div class="row" *ngIf="unitAddingStatus && submitted">
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="unitAddingStatus && submitted">
           <div class="alert alert-success">
             <h4>Unit added successfully!</h4>
           </div>
         </div>
       </div>
-      <button class="btn btn-danger" type="submit" [disabled]="addForm.invalid">
-        Save unit
-      </button>
+      <div class="row" *ngIf="inProgress && !submitted">
+        <div class="col-md-12">
+          <div class="alert alert-warning">
+            <h4>Please wait...</h4>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </div>

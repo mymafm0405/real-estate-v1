@@ -22,6 +22,8 @@ export class BuildingsService {
   unitsAddingStatus = new Subject<boolean>();
   unitUpdateStatus = new Subject<boolean>();
 
+  contractGetStatus = new Subject<boolean>();
+
   constructor(private http: HttpClient) {}
 
   // From here all are about buildings
@@ -173,11 +175,19 @@ export class BuildingsService {
       )
       .subscribe((resContracts) => {
         this.contracts = resContracts;
+        console.log(this.contracts);
       });
   }
 
   getUnitContract(unitId: string) {
-    return this.contracts.find((contract) => contract.unitId === unitId);
+    const foundContract = this.contracts.find(
+      (contract) => contract.unitId === unitId
+    );
+    if (foundContract) {
+      this.contractGetStatus.next(true);
+    }
+    console.log(foundContract);
+    return foundContract;
   }
 
   // All about customers from here...
@@ -187,6 +197,18 @@ export class BuildingsService {
       (contract) => contract.customerId === customerId
     );
     console.log(foundContracts);
+    return foundContracts;
+  }
+
+  getUnitContractByContractId(contractId: string) {
+    const foundContract = this.contracts.find(
+      (contract) => contract.id === contractId
+    );
+    if (foundContract) {
+      this.contractGetStatus.next(true);
+    }
+    console.log(foundContract);
+    return foundContract;
   }
 
   addCustomer(newCustomer: Customer) {

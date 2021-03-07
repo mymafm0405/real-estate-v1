@@ -32,6 +32,7 @@ export class ContractFormComponent implements OnInit, OnDestroy {
   formValues: FormsValues;
   customerId: string;
   newContract: Contract;
+  inProgress = false;
 
   constructor(
     private buildingsService: BuildingsService,
@@ -74,13 +75,17 @@ export class ContractFormComponent implements OnInit, OnDestroy {
     console.log(foundCustomer);
     if (foundCustomer && !this.msgFoundCustomer && !this.confirmed) {
       this.customerId = foundCustomer.id;
+      // The next function not useful yet, we have to display the found contracts
       this.buildingsService.getContractsForCustomer(this.customerId);
+      // end
       this.msgFoundCustomer = true;
       console.log('we have found other contracts to same customer!');
       console.log(this.customerId);
       return;
     }
     if (this.confirmed) {
+      this.inProgress = true;
+      console.log('what happened! 2');
       this.addNewCont(this.newContract);
       console.log('we have confirmed to add this contract!');
     }
@@ -102,6 +107,7 @@ export class ContractFormComponent implements OnInit, OnDestroy {
   }
 
   addNewCont(newCont: Contract) {
+    console.log('what happened! 1');
     this.buildingsService.addContract({
       ...newCont,
       customerId: this.customerId,
@@ -109,6 +115,7 @@ export class ContractFormComponent implements OnInit, OnDestroy {
   }
 
   addNewCustomerAndNewCont() {
+    this.inProgress = true;
     const newCustomer = new Customer(
       this.formValues.name,
       this.formValues.qid,
@@ -122,6 +129,7 @@ export class ContractFormComponent implements OnInit, OnDestroy {
         this.customerId = res.name;
         this.addNewCont(this.newContract);
         console.log('new customer added with id: ' + this.customerId);
+        this.inProgress = false;
       });
   }
 

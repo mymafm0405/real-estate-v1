@@ -88,7 +88,7 @@
       <button
         class="btn btn-warning"
         type="submit"
-        [disabled]="addForm.invalid"
+        [disabled]="addForm.invalid || inProgress"
         *ngIf="!msgFoundCustomer"
       >
         Save contract
@@ -103,11 +103,17 @@
             class="btn btn-success"
             (click)="onConfirm()"
             type="submit"
-            [disabled]="addForm.invalid"
+            [disabled]="addForm.invalid || inProgress"
           >
             Confirm
           </button>
-          <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+          <button
+            class="btn btn-danger"
+            (click)="onCancel()"
+            [disabled]="inProgress"
+          >
+            Cancel
+          </button>
         </div>
       </div>
       <div class="row">
@@ -119,6 +125,13 @@
         <div class="col-md-12" *ngIf="submitted && !addingContractStatus">
           <div class="alert alert-danger">
             <h4>Error happened, Try again!</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="inProgress && !submitted">
+        <div class="col-md-12">
+          <div class="alert alert-warning">
+            <h4>Please wait...</h4>
           </div>
         </div>
       </div>
