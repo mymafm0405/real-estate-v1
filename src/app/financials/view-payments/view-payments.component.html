@@ -1,0 +1,31 @@
+<div class="row" *ngIf="allPayments.length > 0">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>S.N</th>
+        <th>Date</th>
+        <th>Details</th>
+        <th>Receiver ID</th>
+        <th>Amount</th>
+      </tr>
+      <tr *ngFor="let payment of allPayments; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ payment.date }}</td>
+        <td>{{ payment.details }}</td>
+        <td>{{ payment.employeeId }}</td>
+        <td>{{ payment.amount }}</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4">Total payments</td>
+        <td class="total">{{ totalPaid }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="allPayments.length === 0">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      <h4>No receipts for this contract!</h4>
+    </div>
+  </div>
+</div>

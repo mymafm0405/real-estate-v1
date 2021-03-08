@@ -25,6 +25,7 @@ export class FinSummaryComponent implements OnInit, OnDestroy {
   paymentsStatusSub: Subscription;
 
   paymentClicked = false;
+  viewPaymentsClicked = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -70,6 +71,12 @@ export class FinSummaryComponent implements OnInit, OnDestroy {
 
   onAddPayment() {
     this.paymentClicked = !this.paymentClicked;
+    this.viewPaymentsClicked = false;
+  }
+
+  onViewPayments() {
+    this.viewPaymentsClicked = !this.viewPaymentsClicked;
+    this.paymentClicked = false;
   }
 
   ngOnDestroy() {

@@ -302,4 +302,11 @@ export class BuildingsService {
     }
     return totalPaidAmount;
   }
+
+  getPaymentsForContract(contractId: string) {
+    const allFoundPaymentsForContract = this.payments.filter(
+      (payment) => payment.contractId === contractId
+    );
+    return allFoundPaymentsForContract;
+  }
 }

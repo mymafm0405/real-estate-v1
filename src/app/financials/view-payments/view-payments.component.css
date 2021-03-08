@@ -1,0 +1,17 @@
+table {
+  font-size: 18px;
+}
+tr,
+th,
+td {
+  text-align: center;
+  border: 1px solid #333;
+  padding: 10px;
+}
+.total-row {
+  background-color: aliceblue;
+}
+.total {
+  background-color: greenyellow;
+  font-weight: bold;
+}

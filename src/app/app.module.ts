@@ -22,6 +22,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContractFormComponent } from './contracts/contract-form/contract-form.component';
 import { FinSummaryComponent } from './financials/fin-summary/fin-summary.component';
 import { AddPaymentComponent } from './financials/add-payment/add-payment.component';
+import { ViewPaymentsComponent } from './financials/view-payments/view-payments.component';
 const appRoutes: Routes = [
   { path: '', component: BuildingsComponent },
   {
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     ContractFormComponent,
     FinSummaryComponent,
     AddPaymentComponent,
+    ViewPaymentsComponent,
   ],
   imports: [
     BrowserModule,

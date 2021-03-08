@@ -1,7 +1,17 @@
 <div class="row">
   <div class="col-md-12">
-    <h2>Financial Report</h2>
-    <h3>Customer details will be here</h3>
+    <h2 class="title">Financial Report</h2>
+  </div>
+</div>
+<div class="row cus-details">
+  <div class="col-md-12">
+    <h3>Name: {{ customer.name }}</h3>
+    <h3>Phone: {{ customer.phone }}</h3>
+    <h3>Qatar ID: {{ customer.qId }}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
     <div class="row">
       <div class="col-md-4 remaining">
         <h4>Remaining</h4>
@@ -17,11 +27,31 @@
       </div>
     </div>
     <div class="row add-margin">
-      <div class="col-md-12">
+      <div class="col-md-4">
         <button class="btn btn-primary" (click)="onAddPayment()">
           Add payment
         </button>
-        <app-add-payment *ngIf="paymentClicked"></app-add-payment>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary" (click)="onViewPayments()">
+          View payments
+        </button>
+      </div>
+    </div>
+    <div class="row add-margin">
+      <div class="col-md-12">
+        <app-add-payment
+          *ngIf="paymentClicked && !viewPaymentsClicked"
+        ></app-add-payment>
+      </div>
+    </div>
+    <div class="row add-margin">
+      <div class="col-md-12">
+        <app-view-payments
+          [contractId]="contract.id"
+          [totalPaid]="totalPaid"
+          *ngIf="!paymentClicked && viewPaymentsClicked"
+        ></app-view-payments>
       </div>
     </div>
   </div>

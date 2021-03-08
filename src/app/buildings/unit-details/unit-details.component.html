@@ -7,7 +7,11 @@
 </div>
 <div class="row" *ngIf="currentUnit">
   <div class="col-md-12">
-    <h4>{{ currentUnit.name }}</h4>
+    <div class="row unit-title">
+      <div class="col-md-12">
+        <h1>{{ currentUnit.name }}</h1>
+      </div>
+    </div>
     <div class="row" *ngIf="currentUnit.contractId === ''">
       <div class="col-md-12">
         <button class="btn btn-success" (click)="onNewContract()">
@@ -33,7 +37,6 @@
         </button>
       </div>
     </div>
-
     <div class="row" *ngIf="viewClicked">
       <div class="col-md-12">
         <app-contract-summary></app-contract-summary>
