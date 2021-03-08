@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Unit } from './unit.model';
 import { Contract } from './contract.model';
 import { Customer } from './customer.model';
+import { Payment } from './payment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class BuildingsService {
   units: Unit[] = [];
   contracts: Contract[] = [];
   customers: Customer[] = [];
+  payments: Payment[] = [];
 
   buildingsChanged = new Subject<Building[]>();
   buildingAddingStatus = new Subject<boolean>();
@@ -23,6 +25,7 @@ export class BuildingsService {
   unitUpdateStatus = new Subject<boolean>();
 
   contractGetStatus = new Subject<boolean>();
+  paymentsChanged = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -251,5 +254,52 @@ export class BuildingsService {
       (customer) => customer.id === customerId
     );
     return foundCustomer;
+  }
+
+  // All about financials from here...
+
+  addPayment(payment: Payment) {
+    this.http
+      .post(
+        'https://real-estate-v1-default-rtdb.firebaseio.com/payments.json',
+        payment
+      )
+      .subscribe((res: { name: string }) => {
+        this.payments.push({ ...payment, id: res.name });
+        this.paymentsChanged.next(true);
+      });
+  }
+
+  loadPayments() {
+    this.http
+      .get('https://real-estate-v1-default-rtdb.firebaseio.com/payments.json')
+      .pipe(
+        map((resData): Payment[] => {
+          const resPayments: Payment[] = [];
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              resPayments.push({ ...resData[key], id: key });
+            }
+          }
+          return resPayments;
+        })
+      )
+      .subscribe((resPayments: Payment[]) => {
+        this.payments = resPayments;
+        console.log('payments loaded successfully');
+      });
+  }
+
+  getTotalPaidForContract(contractId: string) {
+    const allFoundPaymentsForContract = this.payments.filter(
+      (payment) => payment.contractId === contractId
+    );
+    let totalPaidAmount = 0;
+    if (allFoundPaymentsForContract.length > 0) {
+      for (const pay of allFoundPaymentsForContract) {
+        totalPaidAmount = totalPaidAmount + pay.amount;
+      }
+    }
+    return totalPaidAmount;
   }
 }

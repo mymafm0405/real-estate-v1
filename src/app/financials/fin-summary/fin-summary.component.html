@@ -1,1 +1,28 @@
-<p>fin-summary works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Financial Report</h2>
+    <h3>Customer details will be here</h3>
+    <div class="row">
+      <div class="col-md-4 remaining">
+        <h4>Remaining</h4>
+        <h4>{{ totalRemaining }} QAR</h4>
+      </div>
+      <div class="col-md-4 paid">
+        <h4>Paid</h4>
+        <h4>{{ totalPaid }} QAR</h4>
+      </div>
+      <div class="col-md-4 total">
+        <h4>Total of contract</h4>
+        <h4>{{ totalContract }} QAR</h4>
+      </div>
+    </div>
+    <div class="row add-margin">
+      <div class="col-md-12">
+        <button class="btn btn-primary" (click)="onAddPayment()">
+          Add payment
+        </button>
+        <app-add-payment *ngIf="paymentClicked"></app-add-payment>
+      </div>
+    </div>
+  </div>
+</div>

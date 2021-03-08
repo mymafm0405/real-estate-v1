@@ -1,0 +1,16 @@
+.total {
+  background-color: #09f;
+  text-align: center;
+}
+.paid {
+  background-color: chartreuse;
+  text-align: center;
+}
+.remaining {
+  background-color: crimson;
+  color: white;
+  text-align: center;
+}
+.add-margin {
+  margin: 20px 0;
+}

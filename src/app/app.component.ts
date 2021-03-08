@@ -14,5 +14,6 @@ export class AppComponent implements OnInit {
     this.buildingsService.loadUnits();
     this.buildingsService.loadContracts();
     this.buildingsService.loadCustomers();
+    this.buildingsService.loadPayments();
   }
 }
