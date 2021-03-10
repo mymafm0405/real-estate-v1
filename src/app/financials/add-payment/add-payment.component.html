@@ -49,10 +49,29 @@
       <button
         class="btn btn-success"
         type="submit"
-        [disabled]="addForm.invalid"
+        [disabled]="addForm.invalid || inProgress"
       >
         Save payment
       </button>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-warning" *ngIf="inProgress && submitted">
+            <h4>Please wait...</h4>
+          </div>
+          <div
+            class="alert alert-success"
+            *ngIf="paymentStatus && !inProgress && submitted"
+          >
+            <h4>Payment successed!</h4>
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="!paymentStatus && !inProgress && submitted"
+          >
+            <h4>Payment failed!</h4>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </div>

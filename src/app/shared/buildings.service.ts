@@ -26,6 +26,7 @@ export class BuildingsService {
 
   contractGetStatus = new Subject<boolean>();
   paymentsChanged = new Subject<boolean>();
+  endStatusChanges = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -184,13 +185,51 @@ export class BuildingsService {
 
   getUnitContract(unitId: string) {
     const foundContract = this.contracts.find(
-      (contract) => contract.unitId === unitId
+      (contract) => contract.unitId === unitId && contract.status === true
     );
     if (foundContract) {
       this.contractGetStatus.next(true);
     }
     console.log(foundContract);
     return foundContract;
+  }
+
+  endContract(contractId: string, unitId: string) {
+    this.http
+      .patch(
+        'https://real-estate-v1-default-rtdb.firebaseio.com/contracts/' +
+          contractId +
+          '.json',
+        { status: false }
+      )
+      .subscribe(
+        () => {
+          // this.contracts.find(contract => contract.id === contractId).status = false;
+          this.loadContracts();
+          this.http
+            .patch(
+              'https://real-estate-v1-default-rtdb.firebaseio.com/units/' +
+                unitId +
+                '.json',
+              { contractId: '' }
+            )
+            .subscribe(
+              () => {
+                // this.units.find(unit => unit.id === unitId).contractId = '';
+                this.loadUnits();
+                this.endStatusChanges.next(true);
+              },
+              (error) => {
+                this.endStatusChanges.next(false);
+                console.log(error);
+              }
+            );
+        },
+        (error) => {
+          this.endStatusChanges.next(false);
+          console.log(error);
+        }
+      );
   }
 
   // All about customers from here...
@@ -264,10 +303,16 @@ export class BuildingsService {
         'https://real-estate-v1-default-rtdb.firebaseio.com/payments.json',
         payment
       )
-      .subscribe((res: { name: string }) => {
-        this.payments.push({ ...payment, id: res.name });
-        this.paymentsChanged.next(true);
-      });
+      .subscribe(
+        (res: { name: string }) => {
+          this.payments.push({ ...payment, id: res.name });
+          this.paymentsChanged.next(true);
+        },
+        (error) => {
+          this.paymentsChanged.next(false);
+          console.log(error);
+        }
+      );
   }
 
   loadPayments() {

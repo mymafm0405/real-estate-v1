@@ -49,9 +49,11 @@ export class UnitDetailsComponent implements OnInit {
     foundUnit ? (this.currentUnit = foundUnit) : this.router.navigate(['../']);
   }
   getContract() {
-    this.currentContract = this.buildingsService.getUnitContract(
-      this.currentUnit.id
-    );
+    if (this.currentUnit.contractId !== '') {
+      this.currentContract = this.buildingsService.getUnitContract(
+        this.currentUnit.id
+      );
+    }
   }
   getCustomer() {
     if (this.currentContract) {

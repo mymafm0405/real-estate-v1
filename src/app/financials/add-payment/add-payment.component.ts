@@ -13,13 +13,16 @@ import { Unit } from 'src/app/shared/unit.model';
   templateUrl: './add-payment.component.html',
   styleUrls: ['./add-payment.component.css'],
 })
-export class AddPaymentComponent implements OnInit {
+export class AddPaymentComponent implements OnInit, OnDestroy {
   @ViewChild('addForm', { static: false }) addForm: NgForm;
   unit: Unit;
   contract: Contract;
   customer: Customer;
   employeeId: string = '1';
+  paymentStatusSub: Subscription;
   paymentStatus: boolean;
+  inProgress = false;
+  submitted = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +43,16 @@ export class AddPaymentComponent implements OnInit {
         }
       }
 
+      this.paymentStatusSub = this.buildingsService.paymentsChanged.subscribe(
+        (status: boolean) => {
+          this.paymentStatus = status;
+          this.inProgress = false;
+          setTimeout(() => {
+            this.submitted = false;
+          }, 2000);
+        }
+      );
+
       console.log(this.unit);
       console.log(this.contract);
       console.log(this.customer);
@@ -47,6 +60,8 @@ export class AddPaymentComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+    this.inProgress = true;
     const formValues = this.addForm.value;
     const newPayment: Payment = new Payment(
       this.contract.id,
@@ -56,5 +71,10 @@ export class AddPaymentComponent implements OnInit {
       this.employeeId
     );
     this.buildingsService.addPayment(newPayment);
+    this.addForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.paymentStatusSub.unsubscribe();
   }
 }
