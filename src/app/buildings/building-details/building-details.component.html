@@ -3,9 +3,9 @@
     <button class="btn btn-primary" [routerLink]="['']">Back to home</button>
   </div>
 </div>
-<div class="row" *ngIf="currentBuilding">
+<div class="row build-title" *ngIf="currentBuilding">
   <div class="col-md-12">
-    <h3>{{ currentBuilding.name }}</h3>
+    <h1>{{ currentBuilding.name }}</h1>
   </div>
 </div>
 <div class="row">

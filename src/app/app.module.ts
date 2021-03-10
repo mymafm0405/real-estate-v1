@@ -23,6 +23,7 @@ import { ContractFormComponent } from './contracts/contract-form/contract-form.c
 import { FinSummaryComponent } from './financials/fin-summary/fin-summary.component';
 import { AddPaymentComponent } from './financials/add-payment/add-payment.component';
 import { ViewPaymentsComponent } from './financials/view-payments/view-payments.component';
+import { EndContractComponent } from './contracts/end-contract/end-contract.component';
 const appRoutes: Routes = [
   { path: '', component: BuildingsComponent },
   {
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
     FinSummaryComponent,
     AddPaymentComponent,
     ViewPaymentsComponent,
+    EndContractComponent,
   ],
   imports: [
     BrowserModule,

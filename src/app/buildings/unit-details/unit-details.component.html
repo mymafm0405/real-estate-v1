@@ -5,14 +5,27 @@
     </button>
   </div>
 </div>
-<div class="row" *ngIf="currentUnit">
+<div class="row add-margin" *ngIf="currentUnit">
   <div class="col-md-12">
     <div class="row unit-title">
       <div class="col-md-12">
-        <h1>{{ currentUnit.name }}</h1>
+        <h1>{{ currentBuilding.name }}</h1>
+        <h2>{{ currentUnit.name }}</h2>
       </div>
     </div>
-    <div class="row" *ngIf="currentUnit.contractId === ''">
+    <div class="row cust-details" *ngIf="currentCustomer">
+      <div class="col-md-12">
+        <h3>Customer name: {{ currentCustomer.name }}</h3>
+        <h3>Phone: {{ currentCustomer.phone }}</h3>
+      </div>
+    </div>
+    <div class="row not-rented" *ngIf="!currentCustomer">
+      <div class="col-md-12">
+        <h3>Not rented</h3>
+      </div>
+    </div>
+    <!-- here if the unit has no contract now -->
+    <div class="row add-margin" *ngIf="currentUnit.contractId === ''">
       <div class="col-md-12">
         <button class="btn btn-success" (click)="onNewContract()">
           New contract
@@ -25,7 +38,9 @@
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="currentUnit.contractId !== ''">
+    <!-- end -->
+    <!-- here if the unit has a contract -->
+    <div class="row add-margin" *ngIf="currentUnit.contractId !== ''">
       <div class="col-md-3">
         <button class="btn btn-success" (click)="onViewContract()">
           View contract
@@ -36,7 +51,13 @@
           View Financials
         </button>
       </div>
+      <div class="col-md-3">
+        <button class="btn btn-danger" (click)="onEndContract()">
+          End Contract
+        </button>
+      </div>
     </div>
+    <!-- end -->
     <div class="row" *ngIf="viewClicked">
       <div class="col-md-12">
         <app-contract-summary></app-contract-summary>
@@ -45,6 +66,15 @@
     <div class="row" *ngIf="viewFinancial">
       <div class="col-md-12">
         <app-fin-summary></app-fin-summary>
+      </div>
+    </div>
+    <div class="row" *ngIf="endContract">
+      <div class="col-md-12">
+        <app-end-contract
+          [unit]="currentUnit"
+          [currentContract]="currentContract"
+          [currentCustomer]="currentCustomer"
+        ></app-end-contract>
       </div>
     </div>
   </div>

@@ -7,6 +7,7 @@ export class Contract {
     public startDate: string,
     public monthPrice: number,
     public numOfMonths: number,
+    public status: boolean,
     public customerId?: string,
     public id?: string
   ) {}

@@ -66,7 +66,8 @@ export class ContractFormComponent implements OnInit, OnDestroy {
       this.unitId,
       this.formValues.date,
       this.formValues.price,
-      this.formValues.monthsAmount
+      this.formValues.monthsAmount,
+      true
     );
     const foundCustomer = this.buildingsService.checkCustomer(
       this.formValues.qid,

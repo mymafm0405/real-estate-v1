@@ -3,5 +3,21 @@
   color: green;
 }
 .unit-title {
+  background-color: azure;
   text-align: center;
+  border: 1px dashed #666;
+}
+.cust-details {
+  font-size: 18px;
+  text-align: center;
+  background-color: lightyellow;
+  border: 1px dashed #666;
+}
+.not-rented {
+  background-color: #c2ff84;
+  text-align: center;
+  border: 1px dashed #666;
+}
+.add-margin {
+  margin: 20px 0;
 }

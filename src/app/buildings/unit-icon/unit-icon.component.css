@@ -13,3 +13,6 @@
 .empty {
   background-color: #d3ffd3;
 }
+.add-margin {
+  margin: 20px 0px;
+}
