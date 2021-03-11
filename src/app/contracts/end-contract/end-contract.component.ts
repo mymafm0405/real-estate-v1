@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BuildingsService } from 'src/app/shared/buildings.service';
@@ -15,6 +22,7 @@ export class EndContractComponent implements OnInit, OnDestroy {
   @Input() unit: Unit;
   @Input() currentContract: Contract;
   @Input() currentCustomer: Customer;
+  @Output() cancelled = new EventEmitter<boolean>();
   totalContract: number;
   totalPaid: number;
   totalRemaining: number;
@@ -58,6 +66,10 @@ export class EndContractComponent implements OnInit, OnDestroy {
     this.submitted = true;
     this.inProgress = true;
     this.buildingsService.endContract(this.currentContract.id, this.unit.id);
+  }
+
+  onCancel() {
+    this.cancelled.emit(true);
   }
 
   ngOnDestroy() {

@@ -24,6 +24,8 @@ import { FinSummaryComponent } from './financials/fin-summary/fin-summary.compon
 import { AddPaymentComponent } from './financials/add-payment/add-payment.component';
 import { ViewPaymentsComponent } from './financials/view-payments/view-payments.component';
 import { EndContractComponent } from './contracts/end-contract/end-contract.component';
+import { FinishedContractsComponent } from './contracts/finished-contracts/finished-contracts.component';
+import { FoundContractComponent } from './contracts/found-contract/found-contract.component';
 const appRoutes: Routes = [
   { path: '', component: BuildingsComponent },
   {
@@ -55,6 +57,8 @@ const appRoutes: Routes = [
     AddPaymentComponent,
     ViewPaymentsComponent,
     EndContractComponent,
+    FinishedContractsComponent,
+    FoundContractComponent,
   ],
   imports: [
     BrowserModule,

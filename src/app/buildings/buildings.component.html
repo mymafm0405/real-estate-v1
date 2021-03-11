@@ -3,27 +3,48 @@
     <h1>Buildings page</h1>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <app-add-building></app-add-building>
+<div class="row add-margin">
+  <div class="col-md-3">
+    <button class="btn btn-primary" (click)="onShowBuildings()">
+      Show Buildings
+    </button>
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-danger" (click)="onFinishedContracts()">
+      Finished Contracts
+    </button>
   </div>
 </div>
-<div class="row" *ngIf="allBuildings.length > 0">
-  <div class="col-md-3" *ngFor="let building of allBuildings">
-    <app-building-icon [currentBuilding]="building"></app-building-icon>
-  </div>
-</div>
-<div class="row center" *ngIf="loading">
+<div class="row" *ngIf="showBuildings">
   <div class="col-md-12">
-    <div class="alert alert-success">
-      <h4>Loading...</h4>
+    <div class="row" *ngIf="allBuildings.length > 0">
+      <div class="col-md-3" *ngFor="let building of allBuildings">
+        <app-building-icon [currentBuilding]="building"></app-building-icon>
+      </div>
+    </div>
+    <div class="row center" *ngIf="loading">
+      <div class="col-md-12">
+        <div class="alert alert-success">
+          <h4>Loading...</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row center" *ngIf="allBuildings.length === 0 && !loading">
+      <div class="col-md-12">
+        <div class="alert alert-danger">
+          <h4>No buildings, please add some!</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <app-add-building></app-add-building>
+      </div>
     </div>
   </div>
 </div>
-<div class="row center" *ngIf="allBuildings.length === 0 && !loading">
+<div class="row" *ngIf="showFinishedContracts">
   <div class="col-md-12">
-    <div class="alert alert-danger">
-      <h4>No buildings, please add some!</h4>
-    </div>
+    <app-finished-contracts></app-finished-contracts>
   </div>
 </div>

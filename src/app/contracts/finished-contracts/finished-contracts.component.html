@@ -1,0 +1,26 @@
+<div class="row add-margin">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>S.N</th>
+        <th>Customer name</th>
+        <th>Qatar ID</th>
+        <th>Phone</th>
+        <th>Building</th>
+        <th>Unit</th>
+        <th>End Date</th>
+        <th>Remaining</th>
+      </tr>
+      <tr *ngFor="let contract of finalContracts; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ contract.name }}</td>
+        <td>{{ contract.phone }}</td>
+        <td>{{ contract.qId }}</td>
+        <td>{{ contract.building }}</td>
+        <td>{{ contract.unit }}</td>
+        <td>{{ contract.endDate }}</td>
+        <td>{{ contract.remaining }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

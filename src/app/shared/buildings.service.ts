@@ -232,6 +232,13 @@ export class BuildingsService {
       );
   }
 
+  getFinishedContracts() {
+    const finishedContracts = this.contracts.filter(
+      (contract) => contract.status === false
+    );
+    return finishedContracts;
+  }
+
   // All about customers from here...
 
   getContractsForCustomer(customerId: string) {

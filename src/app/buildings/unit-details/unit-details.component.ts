@@ -84,4 +84,8 @@ export class UnitDetailsComponent implements OnInit {
     this.viewClicked = false;
     this.viewFinancial = false;
   }
+
+  onCancel() {
+    this.endContract = false;
+  }
 }

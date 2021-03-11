@@ -11,6 +11,8 @@ import { BuildingsService } from '../shared/buildings.service';
 export class BuildingsComponent implements OnInit, OnDestroy {
   allBuildings: Building[] = [];
   loading = true;
+  showBuildings = false;
+  showFinishedContracts = false;
   buildingsChangesSub: Subscription;
   constructor(private buildingsService: BuildingsService) {}
 
@@ -22,6 +24,16 @@ export class BuildingsComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     );
+  }
+
+  onShowBuildings() {
+    this.showBuildings = !this.showBuildings;
+    this.showFinishedContracts = false;
+  }
+
+  onFinishedContracts() {
+    this.showFinishedContracts = !this.showFinishedContracts;
+    this.showBuildings = false;
   }
 
   ngOnDestroy() {

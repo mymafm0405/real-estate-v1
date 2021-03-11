@@ -13,7 +13,13 @@
     >
       Confim
     </button>
-    <button class="btn btn-success" [disabled]="inProgress">Cancel</button>
+    <button
+      class="btn btn-success"
+      [disabled]="inProgress"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
   </div>
 </div>
 <div class="row">

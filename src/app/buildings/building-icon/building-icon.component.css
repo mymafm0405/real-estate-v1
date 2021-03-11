@@ -1,6 +1,12 @@
 .icon {
   border: 1px solid #333;
   background-color: aliceblue;
+  cursor: pointer;
+  padding: 10px;
+}
+.icon:hover {
+  background-color: skyblue;
+  border: 1px solid red;
 }
 .name {
   text-align: center;
